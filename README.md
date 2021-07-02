@@ -4,16 +4,16 @@ Create a image by image visualisation of a SSN based on user annotation
 
 # Requirement
 
-python == 3.8
-graphviz == 2.47.2
+python == 3.8  
+graphviz == 2.47.2  
 
 ## Python libraries
 
-networkxgmml==0.1.6
-networkx==2.5.1
-matplotlib==3.4.2
-pandas==1.2.4
-numpy==1.20.3
+networkxgmml==0.1.6  
+networkx==2.5.1  
+matplotlib==3.4.2  
+pandas==1.2.4  
+numpy==1.20.3  
 
 # Help
 
