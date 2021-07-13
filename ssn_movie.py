@@ -324,7 +324,7 @@ if ANNOT :
 
     create_folder(os.path.join(OUTPUT, 'ANNOTATION'))
 
-    annot = pd.read_table(ANNOT, comment='#', names=['Hit_Id', 'Gene'])
+    annot = pd.read_table(ANNOT, comment='#')
 
     for score_index in range(num_score) :
         score = all_score[score_index]
