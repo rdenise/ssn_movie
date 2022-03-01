@@ -254,6 +254,11 @@ KOFAM = args.kofam
 EGGNOG = args.eggnog
 ANNOT = args.annotation
 
+if KOFAM or EGGNOG or ANNOT:
+    NOTHING = False
+else:
+    NOTHING = True
+
 ##########################################################################################
 
 with open(XGMML, 'rb') as r_file :
@@ -324,7 +329,7 @@ if ANNOT :
 
     create_folder(os.path.join(OUTPUT, 'ANNOTATION'))
 
-    annot = pd.read_table(ANNOT, comment='#')
+    annot = pd.read_table(ANNOT, comment='#', names=['Hit_Id', 'Gene'], header=False)
 
     for score_index in range(num_score) :
         score = all_score[score_index]
@@ -333,6 +338,29 @@ if ANNOT :
 
         visu_graph(graph = G.copy(),
                    output = os.path.join(OUTPUT, 'ANNOTATION', os.path.basename(args.xgmml).replace('.xgmml', f'.{score_txt}.png')),
+                   threshold = score,
+                   all_hit_id = all_hit_id,
+                   annot_df = annot, 
+                   hit_id2node = hit_id2node)    
+
+        print(f'Score done for annotation ::: {score_index + 1}/{num_score} : {round(((score_index + 1)/num_score)*100, 2)}%', end='\r', flush=True)
+
+        
+##########################################################################################
+
+if NOTHING :
+
+    create_folder(os.path.join(OUTPUT, 'NoAnnotation'))
+
+    annot = pd.DataFrame(columns=['Hit_Id', 'Gene'])
+
+    for score_index in range(num_score) :
+        score = all_score[score_index]
+
+        score_txt = str(int(score)).zfill(max_str_len_score)
+
+        visu_graph(graph = G.copy(),
+                   output = os.path.join(OUTPUT, 'NoAnnotation', os.path.basename(args.xgmml).replace('.xgmml', f'.{score_txt}.png')),
                    threshold = score,
                    all_hit_id = all_hit_id,
                    annot_df = annot, 
